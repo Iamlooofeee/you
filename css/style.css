@@ -75,27 +75,42 @@ body {
 }
 .image {	
 	background-repeat: no-repeat;
-	height:100px;
 	line-height:100px;
+	height:100px;
 	text-align:center;
+	font-size:19px;
+	color:white;
+	font-weight: bold;
+
 }
 .author {
-	height:50px;
-	line-height:50px;
+	height:45px;
+	line-height:45px;
 	text-align:center;
+	position:relative;
+}
+.imageAuthor {
+	width:20px;
+	height:20px;
+	
 }
 .date {
-	height:50px;
+	height:45px;
+	line-height:45px;
 	text-align:center;
+
+
 }
 .watches {
-	height:50px;
-	line-height:50px;
+	height:45px;
+	line-height:45px;
 	text-align:center;
+
+
 
 }
 .description {
-	height:100px;
+	height:107px;
 	overflow:hidden;
 	padding:5px;
 }

@@ -1,7 +1,7 @@
 (function() {
 	let search_button = document.getElementById('search_button');
 	search_button.addEventListener("click", function(e) {
-		e.preventDefault();
+			e.preventDefault();
 			var stringSearch = search_text.value;
 
 			var request = gapi.client.youtube.search.list({
@@ -11,14 +11,14 @@
 			maxResults:3,
 			order: "viewCount",
 			});
-			var count;
+			let stringId = "";
 			request.execute(function(response) {
 				for (let i = 0; i < response.result.items.length; i++) {
 					console.log("//" + response.result.items[i].id.videoId)
 					console.log(response.result.items[i].snippet.thumbnails.default.url)
 					console.log("    ")
 
-					count = response.result.items[i].id.videoId;
+					stringId += response.result.items[i].id.videoId.toString() + ",";
 
 					let page_wrapper = document.createElement('div');
 					page_wrapper.className = "page_wrapper";
@@ -34,8 +34,16 @@
 					image.style["background-image"] = "url(" + response.result.items[i].snippet.thumbnails.default.url + ")"
 					image.textContent  = response.result.items[i].snippet.channelTitle;
 
+
+
 					let author = document.createElement('div');
+					let imageAuthor = document.createElement('img');
 					author.className = "author";
+
+					imageAuthor.src = "img/man-user.png"
+					imageAuthor.className = "imageAuthor";
+					
+					page_wrapper_yu.appendChild(imageAuthor)
 					page_wrapper_yu.appendChild(author);
 					author.textContent = response.result.items[i].snippet.channelTitle;
 
@@ -50,28 +58,26 @@
 					watches.className = "watches";
 					page_wrapper_yu.appendChild(watches);
 
-					var resetCount = gapi.client.youtube.search.list({
-					id:response.result.items[i].id.videoId,
-					type:'video',
-					part: 'snippet, contentDeatails, statistics',
-					order: "viewCount"
-					});		
-
-					resetCount.execute(function(response) {
-						console.log(response.result)
-					});
-
-
 					let description = document.createElement('div');
 					description.className = "description";
 					page_wrapper_yu.appendChild(description);
 					description.textContent  = response.result.items[i].snippet.description;
 
+					let getWatches = gapi.client.youtube.videos.list({
+					id: response.result.items[i].id.videoId,
+					part: 'snippet,contentDetails,statistics',
+					});		
+
+					getWatches.execute(function(response) {
+						console.log(response.result);
+						watches.textContent  = response.result.items[0].statistics.viewCount;
+					});
 				//	console.log(response.result.items[i].id.videoId)
 				//	console.log(response.result.items[i].id.videoId)
 				}
-
+				console.log(stringId)
 			})
+
 	});
 })();
 
