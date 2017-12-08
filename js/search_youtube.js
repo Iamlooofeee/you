@@ -8,17 +8,17 @@
 			type:'video',
 			part: 'snippet',
 			q: stringSearch,
-			maxResults:3,
+			maxResults:2,
 			order: "viewCount",
 			});
+			let address;
 			let stringId = "";
 			request.execute(function(response) {
 				for (let i = 0; i < response.result.items.length; i++) {
-					console.log("//" + response.result.items[i].id.videoId)
+					console.log(response.result)
 					console.log(response.result.items[i].snippet.thumbnails.default.url)
 					console.log("    ")
 
-					stringId += response.result.items[i].id.videoId.toString() + ",";
 
 					let page_wrapper = document.createElement('div');
 					page_wrapper.className = "page_wrapper";
@@ -31,8 +31,20 @@
 					let image = document.createElement('div');
 					image.className = "image";
 					page_wrapper_yu.appendChild(image);
-					image.style["background-image"] = "url(" + response.result.items[i].snippet.thumbnails.default.url + ")"
-					image.textContent  = response.result.items[i].snippet.channelTitle;
+					
+					let imageTag = document.createElement('img');
+					image.appendChild(imageTag);
+					imageTag.src = response.result.items[i].snippet.thumbnails.high.url;
+
+					
+					let title = document.createElement('div');
+					title.className = "title";
+					image.appendChild(title)
+
+					let a = document.createElement('a');
+					title.appendChild(a);
+					a.href = "https://www.youtube.com/watch?v=" + response.result.items[i].id.videoId;
+					a.textContent  = response.result.items[i].localized;
 
 
 
@@ -63,19 +75,28 @@
 					page_wrapper_yu.appendChild(description);
 					description.textContent  = response.result.items[i].snippet.description;
 
+
+					if (i === response.result.items.length) {
+						stringId += response.result.items[i].id.videoId.toString();
+						continue;
+					}
+					stringId += response.result.items[i].id.videoId.toString() + ",";
+
+				//	console.log(response.result.items[i].id.videoId)
+				//	console.log(response.result.items[i].id.videoId)
+				}
+
 					let getWatches = gapi.client.youtube.videos.list({
-					id: response.result.items[i].id.videoId,
+					id:stringId,
 					part: 'snippet,contentDetails,statistics',
 					});		
 
 					getWatches.execute(function(response) {
+						for (let i = 0; i < response.result.items.length; i++) {
+							console.log(response.result.items[i].statistics.viewCount);
+						}
 						console.log(response.result);
-						watches.textContent  = response.result.items[0].statistics.viewCount;
 					});
-				//	console.log(response.result.items[i].id.videoId)
-				//	console.log(response.result.items[i].id.videoId)
-				}
-				console.log(stringId)
 			})
 
 	});
