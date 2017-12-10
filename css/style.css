@@ -68,45 +68,50 @@ body {
 	margin-left:40px;
 	margin-top:40px;
 	width:250px;
-	height:350px;
+	height:360px;
 	background:white;
 	border-radius:10px;
 	float:left;
 	overflow:hidden;
+	-webkit-box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.75);
+	box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.75);
 }
-.image {	
+.image {
 	height:120px;
 	position:relative;
 	font-size:18px;
 	color:red;
 	font-weight: bold;
-	overflow:hidden;
+
 }
 .image img {
-	margin-top:-14px;
-	height:150px;
+	margin-top:-5px;
+	height:160px;
 	width:100%;
 }
 .title a {
 	color:white;
 }
 .title {
+	width:100%;
+	z-index:1;
 	position:absolute;
-	top:40%;
-	margin:auto;
+	top:60%;
+	margin-top:-1em;
 	padding:5px 0px 5px 0;
 	word-wrap: break-word;
-	width:100%;
-	max-width:250px;
 	text-align:center;
 	background:green;
 
 }
 .author {
+	font-weight: bold;
+
 	height:45px;
-	line-height:45px;
+	line-height:50px;
 	text-align:center;
-	position:relative;
+	border-top:5px solid #ABB1BA;
 }
 .imageAuthor {
 	width:20px;
@@ -114,24 +119,27 @@ body {
 	
 }
 .date {
+	font-weight: bold;
+
+	border-top:1px solid #ABB1BA;
 	height:45px;
 	line-height:45px;
 	text-align:center;
-
-
 }
 .watches {
+	font-weight: bold;
+	border-top:1px solid #ABB1BA;
 	height:45px;
 	line-height:45px;
 	text-align:center;
-
-
-
 }
 .description {
+	text-shadow: 0.5px 0.5px 0.5px rgba(150, 150, 150, 0.7);
 	height:107px;
 	overflow:hidden;
 	padding:5px;
+	border-top:1px solid #ABB1BA;
+
 }
 
 
